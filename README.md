@@ -25,4 +25,4 @@ Command.add_shortcut('alt-w', 'jupyter-notebook:enter-edit-mode');
 
 Basically it maps Ctrl+B to run the cell (edit or command mode), unbinds Ctrl+Enter while in edit mode, maps Alt+W to enter and exit edit mode.
 
-If you don't want one of them, just delete the line, and nothing bad will happen.
+If you don't want one of them just delete the line, and nothing bad will happen.
