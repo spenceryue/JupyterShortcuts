@@ -15,11 +15,13 @@ My custom Jupyter shortcuts. 😬
 
 Starting at line 94 in custom.js I added the following lines:
 
-```Edit.add_shortcut('ctrl-b', 'jupyter-notebook:run-cell');
+```
+Edit.add_shortcut('ctrl-b', 'jupyter-notebook:run-cell');
 Command.add_shortcut('ctrl-b', 'jupyter-notebook:run-cell');
 Edit.remove_shortcut('ctrl-enter');
 Edit.add_shortcut('alt-w', 'jupyter-notebook:enter-command-mode');
-Command.add_shortcut('alt-w', 'jupyter-notebook:enter-edit-mode');```
+Command.add_shortcut('alt-w', 'jupyter-notebook:enter-edit-mode');
+```
 
 Basically it maps Ctrl+B to run the cell (edit or command mode), unbinds Ctrl+Enter while in edit mode, maps Alt+W to enter and exit edit mode.
 
