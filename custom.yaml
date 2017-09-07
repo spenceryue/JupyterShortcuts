@@ -1,0 +1,7 @@
+Type: Jupyter Notebook Extension
+Name: custom.js
+Description: My custom Jupyter shortcuts. :)
+Link: README.md
+Icon: icon.png
+Main: custom.js
+Compatibility: 5.x
