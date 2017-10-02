@@ -39,7 +39,7 @@ define([
 				Kernel.execute("%%writefile .sublime_cell.py\n"
 							 + Notebook.get_selected_cell().get_text());
 				Kernel.execute("import os\n"
-							 + "os.system('subl .sublime_cell.py')");
+							 + "os.system('subl -n .sublime_cell.py')");
 
 				return false;
 			}
@@ -60,7 +60,7 @@ define([
 					output : (msg) => Notebook.get_selected_cell().set_text(msg.content.text)
 				};
 
-				Kernel.execute("print(open('.sublime_cell.py', 'r').read(), end='')",
+				Kernel.execute("from __future__ import print_function; print(open('.sublime_cell.py', 'r').read(), end='')",
 							  {iopub: callback},
 							  {silent: false});
 
@@ -86,8 +86,10 @@ define([
 			var name = getName(shortcut);
 			var prefixed_name = getPrefixedName(shortcut);
 			KeyManager.actions.register(shortcut, name, prefix);
-			if(shortcut.edit)		Edit.add_shortcut(key, prefixed_name);
-			if(shortcut.command)	Command.add_shortcut(key, prefixed_name);
+			if(shortcut.edit)
+				Edit.add_shortcut(key, prefixed_name);
+			if(shortcut.command)
+				Command.add_shortcut(key, prefixed_name);
 		}
 
 		/* Reconfigure builtin shortcuts */
