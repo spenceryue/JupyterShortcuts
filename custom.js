@@ -60,13 +60,68 @@ define([
 					output : (msg) => Notebook.get_selected_cell().set_text(msg.content.text)
 				};
 
-				Kernel.execute("from __future__ import print_function; print(open('.sublime_cell.py', 'r').read(), end='')",
+				Kernel.execute("import sys\n"
+							 + "with open('.sublime_cell.py', 'r') as r:\n"
+							 + "    sys.stdout.write(r.read())",
 							  {iopub: callback},
 							  {silent: false});
 
 				return false;
 			}
-		}
+		},
+
+		'ctrl-o': {
+			help : 'Copy Cell Output',
+			icon : 'fa-clone',
+			edit : true,
+			command : true,
+			handler (event) {
+				var target = Notebook.get_selected_cell().output_area;
+
+				if (target.outputs.length == 0)
+					return;
+
+				var case_0 = target.outputs[0].hasOwnProperty('text');
+
+				if (case_0)
+				{
+					console.log('case 0')
+					var output = target.outputs[0].text;
+				}
+				else
+					var output = target.outputs[0].data['text/plain'];
+
+				console.log('Jupyter Cell Output Copied!\n' + output)
+
+				var input = document.createElement("input");
+				input.value = output;
+				input.style.position = 'fixed';
+				input.style.top = 0;
+				input.style.left = 0;
+
+				// Ensure it has a small width and height. Setting to 1px / 1em
+				// doesn't work as this gives a negative w/h on some browsers.
+				input.style.width = '2em';
+				input.style.height = '2em';
+
+				// We don't need padding, reducing the size if it does flash render.
+				input.style.padding = 0;
+
+				// Clean up any borders.
+				input.style.border = 'none';
+				input.style.outline = 'none';
+				input.style.boxShadow = 'none';
+
+				// Avoid flash of white box if rendered for any reason.
+				input.style.background = 'transparent';
+				document.body.appendChild(input);
+				input.select();
+				document.execCommand('cut');
+				document.body.removeChild(input);
+
+				return false;
+			}
+		},
 	};
 
 	function getName (shortcut) {
