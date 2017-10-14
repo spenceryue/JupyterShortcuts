@@ -40,8 +40,13 @@
 
 							Kernel.execute("%%writefile .sublime_cell.py\n"
 								+ Notebook.get_selected_cell().get_text());
-							Kernel.execute("import os\n"
-								+ "os.system('subl -n .sublime_cell.py')");
+
+							if (seen.size == 0)
+								Kernel.execute("import os\n"
+									+ "os.system('subl -n .sublime_cell.py')");
+							else
+								Kernel.execute("import os\n"
+									+ "os.system('subl .sublime_cell.py')");
 
 							return false;
 						}
